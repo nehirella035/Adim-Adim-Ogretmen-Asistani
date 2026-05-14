@@ -35,8 +35,14 @@ function App() {
   return (
     <div className="app-wrapper">
       <header className="main-header">
-        <h1>Adım Adım Öğretmen Asistanı</h1>
-        <p>Türkiye Yüzyılı Maarif Modeli uyumlu ortaokul ders destek chatbotu</p>
+        <div className="header-brand">
+          <h1>Adım Adım Öğretmen Asistanı</h1>
+          <p>Türkiye Yüzyılı Maarif Modeli uyumlu ortaokul ders destek chatbotu</p>
+        </div>
+        <div className="header-actions">
+          <button className="auth-button login">Giriş Yap</button>
+          <button className="auth-button signup">Üye Ol</button>
+        </div>
       </header>
       
       <div className="content-container">
