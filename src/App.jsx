@@ -3,9 +3,12 @@ import Sidebar from './components/Sidebar';
 import ChatWindow from './components/ChatWindow';
 import PromptsPanel from './components/PromptsPanel';
 import AuthModal from './components/AuthModal';
+import AuthPage from './components/AuthPage';
 import { getGeminiResponse } from './services/gemini';
+import { LogOut } from 'lucide-react';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [config, setConfig] = useState({
     subject: 'Matematik',
     grade: '5. Sınıf',
@@ -34,6 +37,10 @@ function App() {
     }
   };
 
+  if (!isLoggedIn) {
+    return <AuthPage onLogin={() => setIsLoggedIn(true)} />;
+  }
+
   return (
     <div className="app-wrapper">
       <header className="main-header">
@@ -42,8 +49,14 @@ function App() {
           <p>Türkiye Yüzyılı Maarif Modeli uyumlu ortaokul ders destek chatbotu</p>
         </div>
         <div className="header-actions">
-          <button className="auth-button login" onClick={() => setModal({ isOpen: true, type: 'login' })}>Giriş Yap</button>
-          <button className="auth-button signup" onClick={() => setModal({ isOpen: true, type: 'signup' })}>Üye Ol</button>
+          <button 
+            className="auth-button login" 
+            style={{display:'flex', alignItems:'center', gap:'8px'}}
+            onClick={() => setIsLoggedIn(false)}
+          >
+            <LogOut size={16} />
+            Çıkış Yap
+          </button>
         </div>
       </header>
       
