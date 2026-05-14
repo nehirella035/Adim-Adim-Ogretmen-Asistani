@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import ChatWindow from './components/ChatWindow';
 import PromptsPanel from './components/PromptsPanel';
+import AuthModal from './components/AuthModal';
 import { getGeminiResponse } from './services/gemini';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState({ isOpen: false, type: 'login' });
 
   const handleSendMessage = async (text) => {
     const userMessage = { role: 'user', text };
@@ -40,8 +42,8 @@ function App() {
           <p>Türkiye Yüzyılı Maarif Modeli uyumlu ortaokul ders destek chatbotu</p>
         </div>
         <div className="header-actions">
-          <button className="auth-button login">Giriş Yap</button>
-          <button className="auth-button signup">Üye Ol</button>
+          <button className="auth-button login" onClick={() => setModal({ isOpen: true, type: 'login' })}>Giriş Yap</button>
+          <button className="auth-button signup" onClick={() => setModal({ isOpen: true, type: 'signup' })}>Üye Ol</button>
         </div>
       </header>
       
@@ -56,6 +58,12 @@ function App() {
         
         <PromptsPanel onSelectPrompt={handleSendMessage} />
       </div>
+
+      <AuthModal 
+        isOpen={modal.isOpen} 
+        type={modal.type} 
+        onClose={() => setModal({ ...modal, isOpen: false })} 
+      />
     </div>
   );
 }
